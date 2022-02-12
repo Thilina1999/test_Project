@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"main.go/database"
@@ -30,4 +31,26 @@ func GetCategoryById(w http.ResponseWriter, r *http.Request){
 	database.Connector.First(&category,key)
 	w.Header().Set("Content-Type","application/json")
 	json.NewEncoder(w).Encode(category)
+}
+
+
+func UpdateCategoryById(w http.ResponseWriter, r *http.Request){
+	requestBody, _ := ioutil.ReadAll(r.Body)
+	var category structdata.Addproduct
+	json.Unmarshal(requestBody, &category)
+	database.Connector.Save(&category)
+
+	w.Header().Set("Content-Type","application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(category)
+}
+
+func DeletePersonById(w http.ResponseWriter, r *http.Request){
+	vars := mux.Vars(r)
+	key := vars["id"]
+
+	var category structdata.Addproduct
+	id, _ :=strconv.ParseInt(key, 10,64)
+	database.Connector.Where("id = ?", id).Delete(&category)
+	w.WriteHeader(http.StatusNoContent)
 }

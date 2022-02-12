@@ -17,7 +17,9 @@ func main(){
 
 	router.HandleFunc("/create",controller.CreateCategory).Methods("Post")
 	router.HandleFunc("/get/{id}",controller.GetCategoryById).Methods("Get")
-
+	router.HandleFunc("/update/{id}",controller.UpdateCategoryById).Methods("PUT")
+	router.HandleFunc("/delete/{id}",controller.DeletePersonById).Methods("DELETE")
+	
 	log.Fatal(http.ListenAndServe(":8090",router))
 }
 

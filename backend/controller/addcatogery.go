@@ -16,11 +16,17 @@ func CreateCategory(w http.ResponseWriter,r *http.Request){
 	requestBody,_:=ioutil.ReadAll((r.Body))
 	var category structdata.Addproduct
 	json.Unmarshal(requestBody,&category)
-database.Connector.Create(category)
+database.Connector.Create(&category)
 w.Header().Set("Content-Type","application/json")
 w.WriteHeader(http.StatusCreated)
 json.NewEncoder(w).Encode(category)
 
+}
+func GetCategory(w http.ResponseWriter,r *http.Request){
+	category := []structdata.Addproduct{} 
+	database.Connector.Find(&category)
+	w.Header().Set("Content-Type","application/json")
+	json.NewEncoder(w).Encode(category)
 }
 
 func GetCategoryById(w http.ResponseWriter, r *http.Request){

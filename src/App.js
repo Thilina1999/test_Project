@@ -6,6 +6,7 @@ import Cart from './component/Cart'
 import AddProduct from './component/AddProduct';
 import ViewProduct from './component/ViewProduct';
 import AddCategory from './component/AddCategory';
+import ViewCategory from './component/ViewCategory';
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
         <Route path="/cart" element={<Cart/>} exact></Route>
         <Route path="/addProduct" element={<AddProduct/>} exact></Route>
         <Route path="/viewProduct" element={<ViewProduct/>} exact></Route>
-        <Route path="/AddCategory" element={<AddCategory/>} exact></Route>
+        <Route path="/addCategory" element={<AddCategory/>} exact></Route>
+        <Route path="/viewCategory" element={<ViewCategory/>} exact></Route>
       </Routes>
           
        

@@ -6,6 +6,7 @@ import (
 
 	"github.com/gorilla/mux"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"github.com/rs/cors"
 	"main.go/controller"
 	"main.go/database"
 	"main.go/structdata"
@@ -19,8 +20,16 @@ func main(){
 	router.HandleFunc("/get/{id}",controller.GetCategoryById).Methods("Get")
 	router.HandleFunc("/update/{id}",controller.UpdateCategoryById).Methods("PUT")
 	router.HandleFunc("/delete/{id}",controller.DeletePersonById).Methods("DELETE")
-	
-	log.Fatal(http.ListenAndServe(":8090",router))
+	router.HandleFunc("/get",controller.GetCategory).Methods("GET")
+	c:=cors.New(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowCredentials: true,
+	})
+
+	handler:=c.Handler(router)
+	log.Fatal(http.ListenAndServe(":8090",handler))
+
+
 }
 
 func Indb() {
@@ -29,7 +38,7 @@ func Indb() {
 			ServerName: "localhost:3306",
 			User:       "root",
 			Password:   "Thilina1999@",
-			DB:         "test3",
+			DB:         "test8",
 		}
 		connectionString:=database.GetConnectionString(config)
 		err:=database.Connect(connectionString)

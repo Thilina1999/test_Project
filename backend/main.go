@@ -15,15 +15,19 @@ func main(){
 	Indb()
 	log.Println("Starting The Http Server on port 8090")
 	router:=mux.NewRouter().StrictSlash(true)
+	
 
 	router.HandleFunc("/create",controller.CreateCategory).Methods("Post")
 	router.HandleFunc("/get/{id}",controller.GetCategoryById).Methods("Get")
 	router.HandleFunc("/update/{id}",controller.UpdateCategoryById).Methods("PUT")
 	router.HandleFunc("/delete/{id}",controller.DeletePersonById).Methods("DELETE")
 	router.HandleFunc("/get",controller.GetCategory).Methods("GET")
+	router.HandleFunc("/updated/{id}",controller.UpdateCategory).Methods("PUT")
+	
 	c:=cors.New(cors.Options{
 		AllowedOrigins: []string{"*"},
 		AllowCredentials: true,
+		
 	})
 
 	handler:=c.Handler(router)

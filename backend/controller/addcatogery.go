@@ -2,7 +2,9 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
+
 	"net/http"
 	"strconv"
 
@@ -49,6 +51,37 @@ func UpdateCategoryById(w http.ResponseWriter, r *http.Request){
 	w.Header().Set("Content-Type","application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(category)
+}
+
+func UpdateCategory(w http.ResponseWriter, r *http.Request){
+	w.Header().Set("Content-Type","application/json")
+	vars := mux.Vars(r)
+	id := vars["Id"]
+	
+	var categories []structdata.Addproduct
+	database.Connector.Save(&categories)
+		key,err := strconv.Atoi(id)
+		if err == nil {
+			fmt.Println(key)
+		}
+	// for i, item:= range categories {
+	// 	key,err := strconv.Atoi(id)
+		
+	// 	if err==nil{
+	// 		if item.Id == key {
+	// 			categories = append(categories[:i],categories[i+1:]...)
+	// 			var categorie structdata.Addproduct
+	// 			_=json.NewDecoder(r.Body).Decode(&categorie)
+	// 			categorie.Id=key
+	// 			categories = append(categories, categorie)
+	// 			json.NewEncoder(w).Encode(categories)
+	// 			return
+	// 	}
+	// }
+	// 	}
+		
+json.NewEncoder(w).Encode(categories)
+
 }
 
 func DeletePersonById(w http.ResponseWriter, r *http.Request){

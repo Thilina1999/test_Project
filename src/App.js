@@ -7,6 +7,7 @@ import AddProduct from './component/AddProduct';
 import ViewProduct from './component/ViewProduct';
 import AddCategory from './component/AddCategory';
 import ViewCategory from './component/ViewCategory';
+import UpdateCategory from './component/UpdateCategory';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/viewProduct" element={<ViewProduct/>} exact></Route>
         <Route path="/addCategory" element={<AddCategory/>} exact></Route>
         <Route path="/viewCategory" element={<ViewCategory/>} exact></Route>
+        <Route path="/update" element={<UpdateCategory/>} exact></Route> 
       </Routes>
           
        

@@ -23,3 +23,7 @@ func Migrate(table *structdata.Addproduct ){
 	Connector.AutoMigrate(&table)
 	log.Println("Table migrated")
 }
+func Migrate1(table *structdata.Newcat ){
+	Connector.AutoMigrate(&table)
+	log.Println("Table Migrated")
+}

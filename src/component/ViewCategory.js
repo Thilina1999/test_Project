@@ -8,24 +8,34 @@ import UpdateCategory from "./UpdateCategory";
 const ViewCategory=()=>{
     
     const[categories, setCategories]=useState([]);
-
-    useEffect(()=>{
-        
-        axios.get("http://localhost:8090/get").then((res)=>{
+ const GetCat=()=>{
+         useEffect(()=>{
+             axios.get("http://localhost:8090/get").then((res)=>{
                
                 setCategories(res.data);
                 
                 
             }).catch((err)=>{
-                alert(err.messagge)
+                console.log(err);
             })
         
-    },[])
+   },[]);
+   
+  }
+  GetCat();
+ 
     const SetData=(data1,data2)=>{
+      console.log(data1,data2);
+      
       localStorage.setItem('Id',data1);
       localStorage.setItem('Categories',data2);
         
     }
+    const OnDelete=(id)=>{
+        axios.delete(`http://localhost:8090/delete/${id}`);
+        window.location.reload(true);
+    }
+    
 
     return(
 
@@ -43,9 +53,11 @@ const ViewCategory=()=>{
   </thead>
   {categories.map((categories)=>{
       return(
-    <tbody key={categories.id}>
-      
-    <tr>
+    <React.Fragment key={categories.id}>
+
+    
+      <tbody>
+        <tr>
       <td>{categories.id}</td>
 
       <td>{categories.category}</td> 
@@ -58,12 +70,14 @@ const ViewCategory=()=>{
         
       </td>
        <td>
-        <Button size="sm" variant="outline-primary">
+        <Button size="sm" variant="outline-primary" onClick={() => OnDelete(categories.id)}>
             Delete
         </Button>
       </td>
     </tr>
-  </tbody>
+      </tbody>
+    
+  </React.Fragment>
       )
       })}
   
